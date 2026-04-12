@@ -1,0 +1,13 @@
+lockfile_version: '1'
+generated_at: '2026-04-12T15:36:25.275885+00:00'
+apm_version: 0.8.11
+dependencies:
+- repo_url: anthropics/skills
+  host: github.com
+  resolved_commit: 12ab35c2eb5668c95810e6a6066f40f4218adc39
+  virtual_path: skills/frontend-design
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .claude/skills/frontend-design
+  content_hash: sha256:063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare how different texts tokenize for LLMs side by side. Token count, character count, word count, and live token visualization.">
+  <meta property="og:title" content="Token Compare — LLM Token Analyzer">
+  <meta property="og:description" content="Side-by-side token analysis for LLM prompt engineering. See exactly how your text gets tokenized.">
+  <title>Token Compare — LLM Token Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="app">
+    <!-- ── Header ────────────────────────────────────── -->
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo" aria-label="Token Compare home">
+          <svg class="logo-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+            <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+            <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+            <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-word logo-token">token</span><span class="logo-word logo-compare">compare</span>
+          </div>
+        </a>
+        <div class="header-right">
+          <div class="encoding-badge" title="Tokenization encoding used: cl100k_base (GPT-4, GPT-3.5, ChatGPT)">
+            <span class="enc-dot" aria-hidden="true"></span>
+            <span class="enc-text">cl100k_base</span>
+            <span class="enc-sep" aria-hidden="true">·</span>
+            <span class="enc-models">GPT-4 &amp; ChatGPT</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Main ─────────────────────────────────────── -->
+    <main class="main">
+      <div class="panels-wrapper">
+
+        <div class="panels">
+
+          <!-- ── Panel A ── -->
+          <article class="panel panel-a" aria-label="Text panel A">
+            <header class="panel-header">
+              <div class="panel-label-group">
+                <span class="panel-badge badge-a" aria-label="Panel A">A</span>
+                <span class="panel-title">First text</span>
+              </div>
+              <button class="btn-clear" data-target="text-a" title="Clear text" aria-label="Clear panel A">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+                  <path d="M1.5 1.5l10 10M11.5 1.5l-10 10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+                clear
+              </button>
+            </header>
+
+            <div class="textarea-wrapper">
+              <textarea
+                id="text-a"
+                class="panel-textarea"
+                placeholder="Enter your first text here…&#10;&#10;Try pasting a prompt, code snippet, or any text you'd like to analyze."
+                spellcheck="false"
+                rows="6"
+                aria-label="First text input"
+              ></textarea>
+            </div>
+
+            <div class="stats-row" aria-label="Token statistics for panel A">
+              <div class="stat-card stat-primary">
+                <div class="stat-num" id="tokens-a" aria-live="polite">0</div>
+                <div class="stat-lbl">tokens</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" id="chars-a" aria-live="polite">0</div>
+                <div class="stat-lbl">characters</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" id="words-a" aria-live="polite">0</div>
+                <div class="stat-lbl">words</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" id="lines-a" aria-live="polite">0</div>
+                <div class="stat-lbl">lines</div>
+              </div>
+            </div>
+
+            <div class="secondary-stats">
+              <div class="sec-stat">
+                <span class="sec-lbl">tokens / word</span>
+                <span class="sec-val" id="density-a">—</span>
+              </div>
+              <div class="sec-stat">
+                <span class="sec-lbl">unique tokens</span>
+                <span class="sec-val" id="unique-a">—</span>
+              </div>
+              <div class="sec-stat">
+                <span class="sec-lbl">token efficiency</span>
+                <span class="sec-val" id="efficiency-a">—</span>
+              </div>
+            </div>
+
+            <div class="viz-section">
+              <div class="viz-header">
+                <span class="viz-title">Token visualization</span>
+                <span class="viz-hint">Each color = one token</span>
+              </div>
+              <div class="token-viz" id="viz-a" aria-label="Token visualization for panel A">
+                <span class="viz-empty">Tokens will appear here as you type…</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── Panel B ── -->
+          <article class="panel panel-b" aria-label="Text panel B">
+            <header class="panel-header">
+              <div class="panel-label-group">
+                <span class="panel-badge badge-b" aria-label="Panel B">B</span>
+                <span class="panel-title">Second text</span>
+              </div>
+              <button class="btn-clear" data-target="text-b" title="Clear text" aria-label="Clear panel B">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+                  <path d="M1.5 1.5l10 10M11.5 1.5l-10 10" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+                </svg>
+                clear
+              </button>
+            </header>
+
+            <div class="textarea-wrapper">
+              <textarea
+                id="text-b"
+                class="panel-textarea"
+                placeholder="Enter your second text here…&#10;&#10;Compare different phrasings, languages, or styles to see how tokenization differs."
+                spellcheck="false"
+                rows="6"
+                aria-label="Second text input"
+              ></textarea>
+            </div>
+
+            <div class="stats-row" aria-label="Token statistics for panel B">
+              <div class="stat-card stat-primary">
+                <div class="stat-num" id="tokens-b" aria-live="polite">0</div>
+                <div class="stat-lbl">tokens</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" id="chars-b" aria-live="polite">0</div>
+                <div class="stat-lbl">characters</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" id="words-b" aria-live="polite">0</div>
+                <div class="stat-lbl">words</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-num" id="lines-b" aria-live="polite">0</div>
+                <div class="stat-lbl">lines</div>
+              </div>
+            </div>
+
+            <div class="secondary-stats">
+              <div class="sec-stat">
+                <span class="sec-lbl">tokens / word</span>
+                <span class="sec-val" id="density-b">—</span>
+              </div>
+              <div class="sec-stat">
+                <span class="sec-lbl">unique tokens</span>
+                <span class="sec-val" id="unique-b">—</span>
+              </div>
+              <div class="sec-stat">
+                <span class="sec-lbl">token efficiency</span>
+                <span class="sec-val" id="efficiency-b">—</span>
+              </div>
+            </div>
+
+            <div class="viz-section">
+              <div class="viz-header">
+                <span class="viz-title">Token visualization</span>
+                <span class="viz-hint">Each color = one token</span>
+              </div>
+              <div class="token-viz" id="viz-b" aria-label="Token visualization for panel B">
+                <span class="viz-empty">Tokens will appear here as you type…</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ── Comparison Bar ── -->
+        <div class="comparison-bar" id="comparison-bar" aria-label="Token count comparison">
+          <div class="cmp-track-group">
+            <div class="cmp-side cmp-side-a">
+              <span class="cmp-badge badge-a" aria-label="Panel A">A</span>
+              <div class="cmp-track" aria-hidden="true">
+                <div class="cmp-fill cmp-fill-a" id="cmp-fill-a"></div>
+              </div>
+              <span class="cmp-count" id="cmp-count-a" aria-live="polite">0</span>
+            </div>
+
+            <div class="cmp-center">
+              <span class="cmp-vs" aria-hidden="true">vs</span>
+            </div>
+
+            <div class="cmp-side cmp-side-b">
+              <span class="cmp-count" id="cmp-count-b" aria-live="polite">0</span>
+              <div class="cmp-track" aria-hidden="true">
+                <div class="cmp-fill cmp-fill-b" id="cmp-fill-b"></div>
+              </div>
+              <span class="cmp-badge badge-b" aria-label="Panel B">B</span>
+            </div>
+          </div>
+
+          <div class="cmp-verdict" id="cmp-verdict" aria-live="polite">
+            Enter text in both panels to compare token counts
+          </div>
+        </div>
+
+      </div><!-- /panels-wrapper -->
+    </main>
+
+    <!-- ── Footer ───────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">
+            <svg width="16" height="16" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+              <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+              <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+              <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+            </svg>
+            token compare
+          </span>
+          <span class="footer-sep">·</span>
+          <span class="footer-copy">© 2025</span>
+          <span class="footer-sep">·</span>
+          <span>by <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link footer-author">Liran Tal</a></span>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            @liran_tal
+          </a>
+          <a href="https://github.com/niieani/gpt-tokenizer" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.09.682-.218.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.16 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            gpt-tokenizer
+          </a>
+          <a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener noreferrer" class="footer-link">
+            OpenAI Tokenizer
+          </a>
+          <a href="https://github.com/liran-tal" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.09.682-.218.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.16 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
