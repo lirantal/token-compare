@@ -4,8 +4,10 @@ import { fileURLToPath } from 'url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
-  plugins: [],
+  plugins: [cloudflare()],
   build: {
     outDir: 'dist',
     target: 'es2020',
