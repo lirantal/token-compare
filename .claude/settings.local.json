@@ -4,7 +4,9 @@
       "WebSearch",
       "Bash(npm install:*)",
       "Bash(npm run:*)",
-      "Bash(chmod +x:*)"
+      "Bash(chmod +x:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run:*)"
     ]
   }
 }
