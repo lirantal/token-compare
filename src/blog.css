@@ -4,9 +4,9 @@
   --bg-surface:     #111420;
   --bg-elevated:    #171b29;
   --bg-hover:       #1d2235;
-  --text-primary:   #d0d5e2;
-  --text-secondary: #7a8299;
-  --text-muted:     #444b63;
+  --text-primary:   #e2e6f3;
+  --text-secondary: #9aa3bf;
+  --text-muted:     #646e8c;
   --accent-a:       #ff6b6b;
   --accent-a-dim:   rgba(255, 107, 107, 0.15);
   --accent-a-glow:  rgba(255, 107, 107, 0.08);
@@ -17,9 +17,9 @@
   --border:         rgba(255, 255, 255, 0.055);
   --border-medium:  rgba(255, 255, 255, 0.09);
   --border-strong:  rgba(255, 255, 255, 0.14);
-  --font-display:   'Syne', sans-serif;
+  --font-display:   'Inter', sans-serif;
   --font-mono:      'JetBrains Mono', monospace;
-  --font-body:      'Plus Jakarta Sans', sans-serif;
+  --font-body:      'Inter', sans-serif;
   --r-sm:  6px;
   --r-md:  10px;
   --r-lg:  16px;
@@ -112,7 +112,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .blog-hero-inner { max-width: 760px; margin: 0 auto; }
 
 .blog-eyebrow {
-  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  font-size: 0.72rem; font-weight: 600;
   color: var(--accent-b); text-transform: uppercase; letter-spacing: 0.1em;
   margin-bottom: 14px; display: block;
 }
@@ -228,7 +228,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .callout.warning .callout-label { color: var(--gold); }
 
 .callout-label {
-  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+  font-size: 0.68rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;
 }
 .callout p { margin-bottom: 0; }
@@ -322,7 +322,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .related-card:hover { border-color: var(--border-medium); background: var(--bg-elevated); }
 .related-label {
-  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+  font-size: 0.68rem; font-weight: 700;
   color: var(--accent-b); text-transform: uppercase; letter-spacing: 0.1em;
 }
 .related-card-title {
@@ -390,7 +390,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transform: translateY(-2px);
 }
 .blog-listing-label {
-  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+  font-size: 0.68rem; font-weight: 700;
   color: var(--accent-b); text-transform: uppercase; letter-spacing: 0.1em;
 }
 .blog-listing-title {
