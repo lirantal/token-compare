@@ -11,3 +11,12 @@ dependencies:
   deployed_files:
   - .claude/skills/frontend-design
   content_hash: sha256:063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67
+- repo_url: coreyhaines31/marketingskills
+  host: github.com
+  resolved_commit: 2c7c108bd53efc35e3408ad9cd6f0921686e8205
+  virtual_path: skills/seo-audit
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .claude/skills/seo-audit
+  content_hash: sha256:a088da25f4516237940280cbc173662cbf70b397e306e3af4510e9ddd98037e3

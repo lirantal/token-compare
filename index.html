@@ -3,10 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Compare how different texts tokenize for LLMs side by side. Token count, character count, word count, and live token visualization.">
-  <meta property="og:title" content="Token Compare — LLM Token Analyzer">
-  <meta property="og:description" content="Side-by-side token analysis for LLM prompt engineering. See exactly how your text gets tokenized.">
-  <title>Token Compare — LLM Token Analyzer</title>
+
+  <!-- Primary SEO -->
+  <title>Token Compare — Free LLM Token Counter &amp; Comparator</title>
+  <meta name="description" content="Compare how different prompts tokenize for GPT-4, ChatGPT, and other LLMs. Real-time side-by-side token count, visualization, and efficiency metrics. Free, no signup required.">
+  <meta name="keywords" content="token counter, LLM token counter, GPT-4 token count, ChatGPT tokens, tokenizer, token compare, prompt token count, cl100k_base, BPE tokenizer, token cost calculator">
+  <meta name="author" content="Liran Tal">
+  <link rel="canonical" href="https://tokencompare.dev/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tokencompare.dev/">
+  <meta property="og:title" content="Token Compare — Free LLM Token Counter &amp; Comparator">
+  <meta property="og:description" content="Side-by-side token analysis for LLM prompt engineering. See exactly how your text gets tokenized by GPT-4 and ChatGPT. Free, instant, no signup.">
+  <meta property="og:image" content="https://tokencompare.dev/token-compare-og.jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Token Compare">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@liran_tal">
+  <meta name="twitter:creator" content="@liran_tal">
+  <meta name="twitter:title" content="Token Compare — Free LLM Token Counter &amp; Comparator">
+  <meta name="twitter:description" content="Side-by-side token analysis for LLM prompt engineering. See exactly how your text gets tokenized by GPT-4 and ChatGPT.">
+  <meta name="twitter:image" content="https://tokencompare.dev/token-compare-og.jpeg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tokencompare.dev/#app",
+        "name": "Token Compare",
+        "url": "https://tokencompare.dev/",
+        "description": "Free LLM token counter and side-by-side comparator. Analyze how text tokenizes for GPT-4, ChatGPT, and other large language models using the cl100k_base encoding.",
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "AI Tools",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Side-by-side token comparison",
+          "Real-time token visualization with color coding",
+          "Token count, character count, word count, line count",
+          "Token density and efficiency metrics",
+          "Unique token analysis",
+          "cl100k_base encoding (GPT-4, GPT-3.5, ChatGPT)"
+        ],
+        "creator": {
+          "@type": "Person",
+          "name": "Liran Tal",
+          "url": "https://x.com/liran_tal"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tokencompare.dev/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a token in LLMs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A token is the smallest unit of text that large language models (LLMs) process. Tokens can be whole words, parts of words, or punctuation marks. For example, the word 'tokenization' may be split into two tokens: 'token' and 'ization'. GPT-4 and ChatGPT use the cl100k_base encoding, where common English words are typically 1 token each, while longer or less-common words may use 2-4 tokens."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does token count matter for LLMs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Token count directly affects LLM API costs and context window usage. OpenAI charges per token for both input and output. GPT-4 has a context window limit (measured in tokens), so prompts that use fewer tokens leave more room for longer conversations or context. For prompt engineers, understanding tokenization helps write more efficient prompts that reduce costs while maintaining quality."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What encoding does Token Compare use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Token Compare uses cl100k_base encoding, the same tokenizer used by GPT-4, GPT-4 Turbo, GPT-3.5-turbo, and ChatGPT. This Byte Pair Encoding (BPE) tokenizer has a vocabulary of approximately 100,000 tokens and handles English text, code, and many other languages."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the programming language or natural language affect token count?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, significantly. English text is generally the most token-efficient, with most common words mapping to a single token. Non-Latin scripts (Chinese, Japanese, Arabic, etc.) typically require more tokens per character. Similarly, code efficiency varies by language: Python and Go code tends to be more token-efficient than verbose languages. Numbers and special characters can also be tokenized differently than expected."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I reduce token count in my LLM prompts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To reduce token count in LLM prompts: (1) Remove filler words and redundant phrases, (2) Use bullet points instead of prose for lists, (3) Prefer shorter synonyms for common concepts, (4) Remove boilerplate instructions that the model already understands by default, (5) Use abbreviations for technical terms you define once, (6) Trim whitespace and unnecessary line breaks. Token Compare lets you test these techniques side-by-side in real time."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
@@ -16,7 +124,7 @@
   <div class="grain" aria-hidden="true"></div>
 
   <div class="app">
-    <!-- ── Header ────────────────────────────────────── -->
+    <!-- ── Header ────────────────────────────────────────────────────────── -->
     <header class="header">
       <div class="header-inner">
         <a href="/" class="logo" aria-label="Token Compare home">
@@ -31,6 +139,7 @@
           </div>
         </a>
         <div class="header-right">
+          <a href="/blog/" class="header-blog-link">Blog</a>
           <div class="encoding-badge" title="Tokenization encoding used: cl100k_base (GPT-4, GPT-3.5, ChatGPT)">
             <span class="enc-dot" aria-hidden="true"></span>
             <span class="enc-text">cl100k_base</span>
@@ -41,7 +150,7 @@
       </div>
     </header>
 
-    <!-- ── Main ─────────────────────────────────────── -->
+    <!-- ── Main ──────────────────────────────────────────────────────────── -->
     <main class="main">
       <div class="panels-wrapper">
 
@@ -220,9 +329,121 @@
         </div>
 
       </div><!-- /panels-wrapper -->
+
+      <!-- ── SEO Content Section ────────────────────────────────────────── -->
+      <section class="seo-section" aria-label="About Token Compare">
+        <div class="seo-inner">
+
+          <div class="seo-about">
+            <h1 class="seo-h1">Free LLM Token Counter &amp; Comparator</h1>
+            <p class="seo-lead">Token Compare lets you paste two pieces of text side by side and instantly see how each gets tokenized for GPT-4, ChatGPT, and other large language models. Every token is color-coded in real time, so you can spot differences at a glance and make smarter prompt engineering decisions.</p>
+          </div>
+
+          <div class="seo-grid">
+            <div class="seo-card">
+              <div class="seo-card-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+                </svg>
+              </div>
+              <h2 class="seo-card-title">Side-by-side comparison</h2>
+              <p class="seo-card-body">Paste two prompts, two phrasings, or two languages and compare their token counts in real time. The comparison bar makes it immediately obvious which version is more token-efficient.</p>
+            </div>
+            <div class="seo-card">
+              <div class="seo-card-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <h2 class="seo-card-title">Instant visualization</h2>
+              <p class="seo-card-body">Each token is highlighted with a unique color so you can see exactly where word boundaries fall. This makes it easy to spot inefficient multi-token words and rewrite them.</p>
+            </div>
+            <div class="seo-card">
+              <div class="seo-card-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+              </div>
+              <h2 class="seo-card-title">Efficiency metrics</h2>
+              <p class="seo-card-body">Beyond raw token count, Token Compare shows tokens-per-word ratio, unique token count, and token efficiency percentage so you can measure how well a piece of text uses its token budget.</p>
+            </div>
+          </div>
+
+          <!-- Use cases -->
+          <div class="seo-use-cases">
+            <h2 class="seo-h2">Who uses Token Compare?</h2>
+            <ul class="seo-list">
+              <li><strong>Prompt engineers</strong> comparing two phrasings of a system prompt to pick the more cost-effective version</li>
+              <li><strong>Developers</strong> estimating API call costs before sending large batches of text to OpenAI or Anthropic</li>
+              <li><strong>Researchers</strong> studying how different languages, scripts, or code styles tokenize under cl100k_base</li>
+              <li><strong>Technical writers</strong> drafting documentation intended for LLM context windows with strict token budgets</li>
+              <li><strong>LLM fine-tuners</strong> auditing training data to understand token distribution and dataset size</li>
+            </ul>
+          </div>
+
+          <!-- FAQ -->
+          <div class="seo-faq">
+            <h2 class="seo-h2">Common questions about LLM tokens</h2>
+
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary class="faq-q">What is a token in a large language model?</summary>
+                <p class="faq-a">A token is the basic unit of text that an LLM reads and produces. The cl100k_base tokenizer used by GPT-4 and ChatGPT splits text using Byte Pair Encoding (BPE): frequent character sequences become single tokens while rare sequences get split into multiple tokens. A good rule of thumb is that 1 token equals roughly 4 characters or 0.75 words in English. A typical paragraph of ~100 words is around 75-130 tokens.</p>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-q">Why does token count affect LLM cost?</summary>
+                <p class="faq-a">OpenAI and other LLM providers charge per 1,000 or 1,000,000 tokens processed. This applies to both input (your prompt) and output (the model's reply). A prompt that uses 500 tokens instead of 1,000 tokens for the same task cuts your input cost in half. For high-volume production applications handling thousands of requests per day, this adds up quickly. Token Compare helps you identify bloated prompts before they ship.</p>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-q">What is the cl100k_base encoding?</summary>
+                <p class="faq-a">cl100k_base is the Byte Pair Encoding tokenizer used by GPT-4, GPT-4 Turbo, GPT-3.5-turbo, and ChatGPT. It has a vocabulary of approximately 100,277 tokens. Compared to older GPT-2 and GPT-3 tokenizers, cl100k_base handles code and non-English text more efficiently. Token Compare uses the open-source gpt-tokenizer library which implements cl100k_base in JavaScript, running entirely in your browser.</p>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-q">Does the choice of language or script change token count?</summary>
+                <p class="faq-a">Significantly. English text and code written in ASCII characters is generally the most token-efficient in cl100k_base. Chinese, Japanese, and Korean text typically uses 1-2 tokens per character, compared to 0.25 tokens per character for common English words. Numbers and mathematical expressions can be surprisingly expensive: the number "1234567890" may tokenize into 5-7 separate tokens. When comparing multilingual prompts, Token Compare makes these differences immediately visible.</p>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-q">How do I reduce token count without losing meaning?</summary>
+                <p class="faq-a">Effective token reduction techniques include: removing filler words ("please", "could you", "I would like you to"), switching from prose to bullet points for lists, using shorter synonyms ("use" vs "utilize"), eliminating redundant context that the model already knows, and defining abbreviations for repeated technical terms. Use the two panels in Token Compare to test before-and-after versions of your prompt and see the exact token savings.</p>
+              </details>
+            </div>
+          </div>
+
+          <!-- Blog links -->
+          <div class="seo-blog-links">
+            <h2 class="seo-h2">Learn more about LLM tokenization</h2>
+            <div class="blog-preview-grid">
+              <a href="/blog/what-is-llm-tokenization/" class="blog-preview-card">
+                <span class="blog-preview-label">Guide</span>
+                <h3 class="blog-preview-title">What is LLM Tokenization?</h3>
+                <p class="blog-preview-desc">A plain-English explanation of how Byte Pair Encoding works and why it matters for your prompts.</p>
+                <span class="blog-preview-cta">Read article</span>
+              </a>
+              <a href="/blog/how-to-count-tokens-gpt4/" class="blog-preview-card">
+                <span class="blog-preview-label">How-to</span>
+                <h3 class="blog-preview-title">How to Count Tokens for GPT-4 &amp; ChatGPT</h3>
+                <p class="blog-preview-desc">Methods to count tokens programmatically and with free browser tools — before you hit the API.</p>
+                <span class="blog-preview-cta">Read article</span>
+              </a>
+              <a href="/blog/reduce-token-count-prompts/" class="blog-preview-card">
+                <span class="blog-preview-label">Tips</span>
+                <h3 class="blog-preview-title">How to Reduce Token Count in LLM Prompts</h3>
+                <p class="blog-preview-desc">Practical techniques to cut token usage by 20-40% without losing prompt effectiveness.</p>
+                <span class="blog-preview-cta">Read article</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </main>
 
-    <!-- ── Footer ───────────────────────────────────── -->
+    <!-- ── Footer ─────────────────────────────────────────────────────────── -->
     <footer class="footer">
       <div class="footer-inner">
         <div class="footer-left">
@@ -241,6 +462,7 @@
           <span>by <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link footer-author">Liran Tal</a></span>
         </div>
         <nav class="footer-links" aria-label="Footer links">
+          <a href="/blog/" class="footer-link">Blog</a>
           <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>

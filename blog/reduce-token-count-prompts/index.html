@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Reduce Token Count in LLM Prompts — 9 Practical Techniques | Token Compare</title>
+  <meta name="description" content="Reduce token count in ChatGPT and GPT-4 prompts by 20-40% using these 9 practical techniques. Includes before/after examples you can test in Token Compare right now.">
+  <link rel="canonical" href="https://tokencompare.dev/blog/reduce-token-count-prompts/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tokencompare.dev/blog/reduce-token-count-prompts/">
+  <meta property="og:title" content="How to Reduce Token Count in LLM Prompts — 9 Practical Techniques">
+  <meta property="og:description" content="Reduce token count in ChatGPT and GPT-4 prompts by 20-40% using these 9 practical techniques with before/after examples.">
+  <meta property="og:image" content="https://tokencompare.dev/token-compare-og.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@liran_tal">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Reduce Token Count in LLM Prompts — 9 Practical Techniques",
+    "description": "Reduce token count in ChatGPT and GPT-4 prompts by 20-40% using 9 practical techniques.",
+    "url": "https://tokencompare.dev/blog/reduce-token-count-prompts/",
+    "datePublished": "2026-04-12",
+    "dateModified": "2026-04-12",
+    "author": {
+      "@type": "Person",
+      "name": "Liran Tal",
+      "url": "https://x.com/liran_tal"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Liran Tal"
+    },
+    "image": "https://tokencompare.dev/token-compare-og.jpeg"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/blog.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="app">
+
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo" aria-label="Token Compare home">
+          <svg width="28" height="28" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+            <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+            <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+            <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-token">token</span><span class="logo-compare">compare</span>
+          </div>
+        </a>
+        <nav class="header-nav" aria-label="Site navigation">
+          <a href="/" class="nav-link">Tool</a>
+          <a href="/blog/" class="nav-link active">Blog</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="blog-hero">
+        <div class="blog-hero-inner">
+          <span class="blog-eyebrow">Tips · 7 min read</span>
+          <h1 class="blog-hero-title">How to Reduce Token Count in LLM Prompts</h1>
+          <p class="blog-hero-desc">For high-volume production applications, reducing prompt token count by even 20% can save thousands of dollars per month. Here are nine techniques that work — with before/after examples you can verify yourself.</p>
+          <div class="blog-meta">
+            <span class="blog-meta-item">Liran Tal</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span class="blog-meta-item">April 12, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-layout">
+        <article class="blog-content">
+
+          <h2>Why token reduction matters at scale</h2>
+          <p>For exploratory work or low-volume usage, token count is largely irrelevant. But once you're running thousands or millions of API calls per day, even small improvements compound significantly. A system prompt that uses 800 tokens instead of 1,200 tokens saves 400 tokens per call. At 100,000 calls per day with GPT-4 Turbo pricing, that's 40 million fewer input tokens daily — roughly $400 per day, or $12,000 per month in savings from a single optimization.</p>
+          <p>The techniques below work best on system prompts and long user instructions. Short conversational messages typically can't be compressed much without losing clarity.</p>
+
+          <div class="callout tip">
+            <span class="callout-label">How to use this guide</span>
+            <p>For each technique, copy both versions into the two panels of <a href="/">Token Compare</a>. You'll see the exact token savings in real time, color-coded by individual token.</p>
+          </div>
+
+          <h2>Technique 1: Remove filler words and pleasantries</h2>
+          <p>System prompts often accumulate polite but token-expensive language that adds zero information for the model.</p>
+
+          <div class="token-table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr><th>Before</th><th>After</th><th>Savings</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Please be helpful, thorough, and accurate in all of your responses.</td>
+                  <td>Be helpful, thorough, and accurate.</td>
+                  <td class="count">~7 tokens</td>
+                </tr>
+                <tr>
+                  <td>I would like you to act as a professional software engineer.</td>
+                  <td>Act as a professional software engineer.</td>
+                  <td class="count">~5 tokens</td>
+                </tr>
+                <tr>
+                  <td>Could you please summarize the following text for me?</td>
+                  <td>Summarize:</td>
+                  <td class="count">~9 tokens</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>The model doesn't need "please" to comply. Conversational framing is for human-to-human communication; in a system prompt, direct imperative statements are both more efficient and typically produce better results.</p>
+
+          <h2>Technique 2: Switch from prose to structured lists</h2>
+          <p>Bullet points and numbered lists carry the same information as prose with fewer connector words ("in addition", "furthermore", "it is also important to note that").</p>
+
+          <p><strong>Before (prose, ~42 tokens):</strong></p>
+          <pre><code>You should always respond in a professional tone.
+In addition, you should avoid using jargon unless
+the user has demonstrated technical expertise.
+Furthermore, keep responses concise and focused
+on the user's actual question.</code></pre>
+
+          <p><strong>After (list, ~26 tokens):</strong></p>
+          <pre><code>Rules:
+- Professional tone
+- Avoid jargon unless user shows technical expertise
+- Keep responses concise and on-topic</code></pre>
+
+          <p>A 38% token reduction with no loss of instruction quality. The model reads lists reliably and interprets them correctly.</p>
+
+          <h2>Technique 3: Prefer shorter synonyms</h2>
+          <p>English has many pairs where the longer word means the same as the shorter word. Replacing one per sentence adds up quickly.</p>
+
+          <div class="token-table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr><th>Wordy version</th><th>Shorter version</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>utilize</td><td>use</td></tr>
+                <tr><td>demonstrate</td><td>show</td></tr>
+                <tr><td>in order to</td><td>to</td></tr>
+                <tr><td>due to the fact that</td><td>because</td></tr>
+                <tr><td>at this point in time</td><td>now</td></tr>
+                <tr><td>with respect to</td><td>about / for</td></tr>
+                <tr><td>it is important to note that</td><td>(delete it)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Technique 4: Define abbreviations for repeated concepts</h2>
+          <p>If your system prompt mentions a concept many times, define an abbreviation and use it throughout.</p>
+
+          <p><strong>Before:</strong></p>
+          <pre><code>You are helping users with customer support requests.
+When a customer support request involves a billing issue,
+escalate the customer support request to the billing team.
+For all other customer support requests, attempt to
+resolve directly.</code></pre>
+
+          <p><strong>After:</strong></p>
+          <pre><code>You handle customer support requests (CSRs).
+Billing CSRs: escalate to billing team.
+Other CSRs: resolve directly.</code></pre>
+
+          <p>The original is ~45 tokens; the rewrite is ~20 tokens. This technique scales: a long prompt that says "customer support request" fifteen times saves 15+ tokens just from the abbreviation alone.</p>
+
+          <h2>Technique 5: Remove redundant context the model already knows</h2>
+          <p>Many system prompts include instructions that are already the model's default behavior.</p>
+          <ul>
+            <li>"Always answer in the language the user writes in" — this is already GPT-4's default</li>
+            <li>"If you don't know something, say so" — already default behavior</li>
+            <li>"Provide accurate and factual information" — already a core objective</li>
+            <li>"You can use markdown formatting" — already enabled in API responses</li>
+          </ul>
+          <p>Remove these and you save 10-30 tokens while actually reducing potential instruction conflicts.</p>
+
+          <h2>Technique 6: Compress example inputs/outputs</h2>
+          <p>Few-shot examples are often the most token-expensive part of a prompt. Compress them by removing explanation and keeping only the essential format.</p>
+
+          <p><strong>Before (~35 tokens per example):</strong></p>
+          <pre><code>Here is an example of the input you will receive and
+the output you should produce:
+
+Input: "The user wants to return a product."
+Output: { "category": "returns", "priority": "medium" }</code></pre>
+
+          <p><strong>After (~18 tokens per example):</strong></p>
+          <pre><code>Examples:
+"The user wants to return a product." → { "category": "returns", "priority": "medium" }</code></pre>
+
+          <p>With five examples, this saves ~85 tokens. With ten examples, ~170 tokens.</p>
+
+          <h2>Technique 7: Use JSON shorthand for structured outputs</h2>
+          <p>When asking for JSON output, the field names in your schema specification count as tokens. Use short, clear field names over descriptive ones in the schema definition.</p>
+
+          <div class="token-table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr><th>Verbose schema</th><th>Short schema</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>"customerSatisfactionScore"</td><td>"score"</td></tr>
+                <tr><td>"productCategoryIdentifier"</td><td>"category"</td></tr>
+                <tr><td>"responseGenerationTimestamp"</td><td>"ts"</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>This only applies to field name instructions in the prompt — the model will use whatever names you specify, short or long.</p>
+
+          <h2>Technique 8: Trim whitespace and blank lines</h2>
+          <p>Extra blank lines, trailing spaces, and indentation all count as tokens. In a long system prompt with decorative formatting and section dividers, these can add up to 20-50 tokens.</p>
+
+          <pre><code># Step 1
+
+
+   Do this thing.
+
+
+# Step 2
+
+
+   Do that thing.</code></pre>
+
+          <p>Compresses to:</p>
+          <pre><code>Step 1: Do this thing.
+Step 2: Do that thing.</code></pre>
+
+          <p>Reformatting alone can save 10-15% of tokens in prompts that use heavy markdown formatting for organization.</p>
+
+          <h2>Technique 9: Move static knowledge to fine-tuning or RAG</h2>
+          <p>If your system prompt includes large amounts of reference material (product documentation, company policies, FAQ text), you're paying for those tokens on every single API call. Two alternatives:</p>
+          <ul>
+            <li><strong>Fine-tuning:</strong> Bake static knowledge into the model weights. The fine-tuned model "knows" your content without it needing to appear in the prompt. Works well for stable, factual information.</li>
+            <li><strong>Retrieval-Augmented Generation (RAG):</strong> Retrieve only the relevant chunks of information at query time and inject just those chunks into the prompt. Works well for large knowledge bases where only a small portion is relevant to any given query.</li>
+          </ul>
+          <p>These approaches require more engineering effort but can reduce prompt size by 50-80% for knowledge-heavy applications.</p>
+
+          <h2>Measuring your savings</h2>
+          <p>After applying any of these techniques, use <a href="/">Token Compare</a> to measure the before/after token counts side by side. The comparison bar shows you the percentage difference at a glance. For system prompts that run at high volume, even a 15% reduction can have significant cost and latency implications over time.</p>
+
+          <h2>What not to cut</h2>
+          <p>Token reduction has diminishing returns — and crossing a line makes outputs worse. Avoid cutting:</p>
+          <ul>
+            <li>Constraints that prevent the model from doing something harmful or off-topic</li>
+            <li>Output format specifications (if you remove these, outputs become unpredictable)</li>
+            <li>Examples that demonstrate a non-obvious behavior you actually need</li>
+            <li>Context that is genuinely new information the model couldn't know otherwise</li>
+          </ul>
+          <p>Always test prompt changes before deploying. A prompt that is 30% shorter but produces wrong outputs 10% of the time is not actually cheaper when you factor in the cost of retries and user dissatisfaction.</p>
+
+        </article>
+
+        <aside class="blog-sidebar">
+          <nav class="sidebar-card" aria-label="Table of contents">
+            <p class="sidebar-title">9 techniques</p>
+            <ul class="sidebar-toc">
+              <li><a href="#filler-words">1. Remove filler words</a></li>
+              <li><a href="#lists-vs-prose">2. Lists over prose</a></li>
+              <li><a href="#shorter-synonyms">3. Shorter synonyms</a></li>
+              <li><a href="#abbreviations">4. Define abbreviations</a></li>
+              <li><a href="#remove-redundant">5. Remove redundant context</a></li>
+              <li><a href="#compress-examples">6. Compress examples</a></li>
+              <li><a href="#json-shorthand">7. JSON shorthand</a></li>
+              <li><a href="#trim-whitespace">8. Trim whitespace</a></li>
+              <li><a href="#fine-tuning-rag">9. Fine-tuning / RAG</a></li>
+            </ul>
+          </nav>
+
+          <div class="cta-card">
+            <p class="cta-card-title">Test your prompt now</p>
+            <p class="cta-card-body">Paste your before/after prompt versions into Token Compare to see the exact token savings side by side.</p>
+            <a href="/" class="cta-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+              </svg>
+              Open Token Compare
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <section class="related-posts" aria-label="Related articles">
+        <div class="related-inner">
+          <p class="related-title">Related articles</p>
+          <div class="related-grid">
+            <a href="/blog/what-is-llm-tokenization/" class="related-card">
+              <span class="related-label">Guide</span>
+              <h3 class="related-card-title">What is LLM Tokenization? A Plain-English Explanation</h3>
+              <p class="related-card-desc">Understanding BPE and why different words cost different token amounts.</p>
+              <span class="related-cta">Read article →</span>
+            </a>
+            <a href="/blog/how-to-count-tokens-gpt4/" class="related-card">
+              <span class="related-label">How-to</span>
+              <h3 class="related-card-title">How to Count Tokens for GPT-4 &amp; ChatGPT</h3>
+              <p class="related-card-desc">Python, JavaScript, and browser methods for accurate token counting before API calls.</p>
+              <span class="related-cta">Read article →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">
+            <svg width="14" height="14" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+              <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+              <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+              <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+            </svg>
+            token compare
+          </span>
+          <span class="footer-sep">·</span>
+          <span class="footer-copy">© 2026</span>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="/" class="footer-link">Tool</a>
+          <a href="/blog/" class="footer-link">Blog</a>
+          <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link">@liran_tal</a>
+          <a href="https://github.com/lirantal/tokenu" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

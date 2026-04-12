@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is LLM Tokenization? A Plain-English Explanation | Token Compare</title>
+  <meta name="description" content="Learn what tokens are in large language models, how Byte Pair Encoding (BPE) works, why cl100k_base is used by GPT-4 and ChatGPT, and how token count affects your API costs and context limits.">
+  <link rel="canonical" href="https://tokencompare.dev/blog/what-is-llm-tokenization/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tokencompare.dev/blog/what-is-llm-tokenization/">
+  <meta property="og:title" content="What is LLM Tokenization? A Plain-English Explanation">
+  <meta property="og:description" content="Learn what tokens are in large language models, how Byte Pair Encoding works, and why token count affects your API costs and context limits.">
+  <meta property="og:image" content="https://tokencompare.dev/token-compare-og.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@liran_tal">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "What is LLM Tokenization? A Plain-English Explanation",
+    "description": "Learn what tokens are in large language models, how Byte Pair Encoding (BPE) works, and why token count affects API costs and context limits.",
+    "url": "https://tokencompare.dev/blog/what-is-llm-tokenization/",
+    "datePublished": "2026-04-12",
+    "dateModified": "2026-04-12",
+    "author": {
+      "@type": "Person",
+      "name": "Liran Tal",
+      "url": "https://x.com/liran_tal"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Liran Tal"
+    },
+    "image": "https://tokencompare.dev/token-compare-og.jpeg",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tokencompare.dev/blog/what-is-llm-tokenization/"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/blog.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="app">
+
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo" aria-label="Token Compare home">
+          <svg width="28" height="28" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+            <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+            <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+            <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-token">token</span><span class="logo-compare">compare</span>
+          </div>
+        </a>
+        <nav class="header-nav" aria-label="Site navigation">
+          <a href="/" class="nav-link">Tool</a>
+          <a href="/blog/" class="nav-link active">Blog</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="blog-hero">
+        <div class="blog-hero-inner">
+          <span class="blog-eyebrow">Guide · 8 min read</span>
+          <h1 class="blog-hero-title">What is LLM Tokenization? A Plain-English Explanation</h1>
+          <p class="blog-hero-desc">Every time you send a message to ChatGPT or GPT-4, your text gets converted into a sequence of numbers called tokens. Understanding this process helps you write more efficient prompts and predict API costs accurately.</p>
+          <div class="blog-meta">
+            <span class="blog-meta-item">Liran Tal</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span class="blog-meta-item">April 12, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-layout">
+        <article class="blog-content">
+
+          <h2>Tokens are not words</h2>
+          <p>The most common misconception about LLM tokenization is that tokens equal words. They don't. A token is a chunk of text that the model's vocabulary recognizes as a single unit. It might be a whole word, part of a word, a punctuation mark, or even a space character.</p>
+          <p>Take the word <strong>tokenization</strong>. Under the cl100k_base encoding used by GPT-4 and ChatGPT, it splits into two tokens: <code>token</code> and <code>ization</code>. The model never sees the full string "tokenization" as one thing — it sees two separate integer IDs that represent those two chunks.</p>
+
+          <div class="callout tip">
+            <span class="callout-label">Try it</span>
+            <p>Paste "tokenization" into <a href="/">Token Compare</a> and watch it split into exactly 2 colored segments. Then try "token" alone — just 1 token.</p>
+          </div>
+
+          <h2>How Byte Pair Encoding (BPE) works</h2>
+          <p>GPT-4 uses a tokenization algorithm called Byte Pair Encoding, originally developed for data compression. Here is the core idea in three steps:</p>
+          <ol>
+            <li><strong>Start with individual characters.</strong> Every byte of text (letters, spaces, punctuation) starts as its own token.</li>
+            <li><strong>Merge the most frequent pairs.</strong> The algorithm scans a massive training corpus and merges the two tokens that appear together most often into a single new token. "t" + "h" becomes "th", then "th" + "e" becomes "the", and so on.</li>
+            <li><strong>Repeat until the vocabulary is full.</strong> This process continues until the vocabulary reaches the target size. For cl100k_base, that's approximately 100,277 tokens.</li>
+          </ol>
+          <p>The result is a vocabulary where common English words and subwords are single tokens, while rare words get split into multiple tokens. This is why "cat" is 1 token but "concatenate" is 3 tokens (<code>con</code>, <code>caten</code>, <code>ate</code>).</p>
+
+          <h2>The cl100k_base encoding</h2>
+          <p>Not all LLMs use the same tokenizer. Different models have different vocabularies, different merge rules, and different ways of handling whitespace and special characters. Here are the tokenizers used by major models:</p>
+
+          <div class="token-table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Encoding</th>
+                  <th>Models</th>
+                  <th>Vocab size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>cl100k_base</td>
+                  <td>GPT-4, GPT-4o, GPT-3.5-turbo, ChatGPT</td>
+                  <td>~100,277</td>
+                </tr>
+                <tr>
+                  <td>o200k_base</td>
+                  <td>GPT-4o (newer versions)</td>
+                  <td>~200,000</td>
+                </tr>
+                <tr>
+                  <td>p50k_base</td>
+                  <td>text-davinci-003, Codex</td>
+                  <td>~50,281</td>
+                </tr>
+                <tr>
+                  <td>r50k_base</td>
+                  <td>GPT-3, older models</td>
+                  <td>~50,281</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Token Compare uses cl100k_base, which covers GPT-4 and ChatGPT — the most widely used models today. If you're building with GPT-4o using the newer o200k_base, token counts will be slightly different because the vocabulary is larger and merges are more aggressive.</p>
+
+          <h2>Why some text costs more tokens than others</h2>
+          <p>Several factors determine how many tokens a given piece of text uses:</p>
+
+          <h3>Word frequency in training data</h3>
+          <p>Common English words like "the", "is", "you", "have" are almost always single tokens because the BPE merging process absorbed them early. Rare words, technical jargon, and proper nouns often split into 2-5 tokens each.</p>
+
+          <h3>Non-English languages</h3>
+          <p>The cl100k_base vocabulary was trained primarily on English text. Non-Latin scripts (Chinese, Japanese, Arabic, Hindi) use many more tokens per character than English. A Chinese character that represents a complete word might require 2-3 tokens. Japanese text with kanji, hiragana, and katakana can be particularly expensive.</p>
+
+          <h3>Numbers and special characters</h3>
+          <p>Numbers are tokenized digit by digit in many cases. The string "2024" might be 1 token, but "202400" might be 2 tokens. URLs are notoriously token-heavy because they contain many uncommon character combinations. A typical URL like <code>https://example.com/api/v2/users/123</code> can easily consume 15-20 tokens.</p>
+
+          <h3>Whitespace and formatting</h3>
+          <p>Whitespace matters in tokenization. Leading spaces before words are often merged with the word itself: " hello" (space + hello) is a different token than "hello". This is why reformatting code or changing indentation can subtly alter token counts.</p>
+
+          <div class="token-table-wrapper">
+            <table class="token-table">
+              <thead>
+                <tr>
+                  <th>Text</th>
+                  <th>Token count</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Hello, world!</td>
+                  <td class="count">4</td>
+                  <td>Hello / , / world / !</td>
+                </tr>
+                <tr>
+                  <td>The cat sat on the mat.</td>
+                  <td class="count">7</td>
+                  <td>All common words = 1 token each</td>
+                </tr>
+                <tr>
+                  <td>Supercalifragilistic</td>
+                  <td class="count">6</td>
+                  <td>Rare word splits heavily</td>
+                </tr>
+                <tr>
+                  <td>def calculate_fibonacci(n):</td>
+                  <td class="count">8</td>
+                  <td>Code has varied token density</td>
+                </tr>
+                <tr>
+                  <td>你好世界</td>
+                  <td class="count">6</td>
+                  <td>Chinese characters are token-expensive</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>What tokens mean for API costs and context windows</h2>
+          <p>LLM APIs charge per token. OpenAI's pricing applies to both input tokens (your prompt) and output tokens (the model's response). As of early 2026, GPT-4 Turbo costs roughly $10 per million input tokens and $30 per million output tokens. At those prices, a 1,000-token prompt sent 10,000 times per day costs around $100 per day just in input tokens.</p>
+          <p>Context windows are also measured in tokens. GPT-4 Turbo's 128,000-token context window sounds large, but if your system prompt is 2,000 tokens, your user message is 5,000 tokens, and you want a 3,000-token response, you're already at 10,000 tokens per conversation turn.</p>
+
+          <div class="callout warning">
+            <span class="callout-label">Cost trap</span>
+            <p>A system prompt that says "Please be helpful, accurate, thorough, concise, and professional" uses approximately 12 tokens. Rewriting it as "Be helpful and direct" uses 4 tokens. At scale, these small savings compound quickly.</p>
+          </div>
+
+          <h2>Token efficiency as a metric</h2>
+          <p>Token Compare shows a "token efficiency" percentage, which measures unique tokens as a proportion of total tokens. A low efficiency score means your text has lots of token repetition — often a sign that a prompt is more verbose than it needs to be. A high efficiency score means most tokens carry unique information.</p>
+          <p>This metric is most useful when comparing two versions of the same prompt: the version with higher token efficiency typically packs more information into fewer tokens.</p>
+
+          <h2>Key takeaways</h2>
+          <ul>
+            <li>Tokens are subword units, not words — one word can be multiple tokens</li>
+            <li>GPT-4 and ChatGPT use cl100k_base with ~100,277 tokens in its vocabulary</li>
+            <li>English text is token-efficient; non-Latin scripts, numbers, and URLs are expensive</li>
+            <li>Both API costs and context window limits are denominated in tokens</li>
+            <li>Paste any text into Token Compare to see live token visualization and counts</li>
+          </ul>
+
+        </article>
+
+        <aside class="blog-sidebar">
+          <nav class="sidebar-card" aria-label="Table of contents">
+            <p class="sidebar-title">In this article</p>
+            <ul class="sidebar-toc">
+              <li><a href="#tokens-are-not-words">Tokens are not words</a></li>
+              <li><a href="#how-bpe-works">How BPE works</a></li>
+              <li><a href="#cl100k-encoding">The cl100k_base encoding</a></li>
+              <li><a href="#token-cost-factors">Why some text costs more</a></li>
+              <li><a href="#api-costs">API costs &amp; context windows</a></li>
+              <li><a href="#token-efficiency">Token efficiency metric</a></li>
+            </ul>
+          </nav>
+
+          <div class="cta-card">
+            <p class="cta-card-title">See tokenization live</p>
+            <p class="cta-card-body">Paste any text into Token Compare and watch it split into color-coded tokens in real time. No signup required.</p>
+            <a href="/" class="cta-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+              </svg>
+              Open Token Compare
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <section class="related-posts" aria-label="Related articles">
+        <div class="related-inner">
+          <p class="related-title">Related articles</p>
+          <div class="related-grid">
+            <a href="/blog/how-to-count-tokens-gpt4/" class="related-card">
+              <span class="related-label">How-to</span>
+              <h3 class="related-card-title">How to Count Tokens for GPT-4 &amp; ChatGPT</h3>
+              <p class="related-card-desc">Four methods to count tokens accurately before you make an API call, including Python libraries and browser tools.</p>
+              <span class="related-cta">Read article →</span>
+            </a>
+            <a href="/blog/reduce-token-count-prompts/" class="related-card">
+              <span class="related-label">Tips</span>
+              <h3 class="related-card-title">How to Reduce Token Count in LLM Prompts</h3>
+              <p class="related-card-desc">Nine practical techniques to trim 20-40% of tokens from your prompts without losing effectiveness.</p>
+              <span class="related-cta">Read article →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">
+            <svg width="14" height="14" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+              <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+              <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+              <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+            </svg>
+            token compare
+          </span>
+          <span class="footer-sep">·</span>
+          <span class="footer-copy">© 2026</span>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="/" class="footer-link">Tool</a>
+          <a href="/blog/" class="footer-link">Blog</a>
+          <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link">@liran_tal</a>
+          <a href="https://github.com/lirantal/tokenu" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

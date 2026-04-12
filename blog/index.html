@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — LLM Tokenization Guides | Token Compare</title>
+  <meta name="description" content="Practical guides on LLM tokenization, token counting, and prompt optimization. Learn how GPT-4, ChatGPT, and other LLMs process text — and how to use that knowledge to write better prompts.">
+  <link rel="canonical" href="https://tokencompare.dev/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tokencompare.dev/blog/">
+  <meta property="og:title" content="Blog — LLM Tokenization Guides | Token Compare">
+  <meta property="og:description" content="Practical guides on LLM tokenization, token counting, and prompt optimization.">
+  <meta property="og:image" content="https://tokencompare.dev/token-compare-og.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@liran_tal">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Token Compare Blog",
+    "url": "https://tokencompare.dev/blog/",
+    "description": "Practical guides on LLM tokenization, token counting, and prompt optimization.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Liran Tal",
+      "url": "https://x.com/liran_tal"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/blog.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="app">
+
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo" aria-label="Token Compare home">
+          <svg width="28" height="28" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+            <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+            <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+            <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+          </svg>
+          <div class="logo-text">
+            <span class="logo-token">token</span><span class="logo-compare">compare</span>
+          </div>
+        </a>
+        <nav class="header-nav" aria-label="Site navigation">
+          <a href="/" class="nav-link">Tool</a>
+          <a href="/blog/" class="nav-link active">Blog</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="blog-hero">
+        <div class="blog-hero-inner">
+          <span class="blog-eyebrow">Blog</span>
+          <h1 class="blog-hero-title">LLM Tokenization Guides</h1>
+          <p class="blog-hero-desc">Practical articles on how large language models tokenize text, how to measure token usage, and techniques to write more efficient prompts.</p>
+        </div>
+      </div>
+
+      <div class="blog-listing-grid">
+        <a href="/blog/what-is-llm-tokenization/" class="blog-listing-card">
+          <span class="blog-listing-label">Guide</span>
+          <h2 class="blog-listing-title">What is LLM Tokenization? A Plain-English Explanation</h2>
+          <p class="blog-listing-desc">Byte Pair Encoding, subword units, vocabulary size — explained without the jargon. Learn why the same word can cost 1 or 4 tokens depending on context.</p>
+          <div class="blog-listing-meta">
+            <span>April 12, 2026</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span>8 min read</span>
+          </div>
+          <span class="blog-listing-cta">Read article →</span>
+        </a>
+
+        <a href="/blog/how-to-count-tokens-gpt4/" class="blog-listing-card">
+          <span class="blog-listing-label">How-to</span>
+          <h2 class="blog-listing-title">How to Count Tokens for GPT-4, GPT-4o &amp; ChatGPT</h2>
+          <p class="blog-listing-desc">Four methods to count tokens accurately before you make an API call — from Python libraries to browser tools. Includes context window limits for every major model.</p>
+          <div class="blog-listing-meta">
+            <span>April 12, 2026</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span>6 min read</span>
+          </div>
+          <span class="blog-listing-cta">Read article →</span>
+        </a>
+
+        <a href="/blog/reduce-token-count-prompts/" class="blog-listing-card">
+          <span class="blog-listing-label">Tips</span>
+          <h2 class="blog-listing-title">How to Reduce Token Count in LLM Prompts</h2>
+          <p class="blog-listing-desc">Nine practical techniques to trim 20–40% of tokens from system prompts and user messages without losing effectiveness. Side-by-side before/after examples included.</p>
+          <div class="blog-listing-meta">
+            <span>April 12, 2026</span>
+            <span class="blog-meta-sep" aria-hidden="true"></span>
+            <span>7 min read</span>
+          </div>
+          <span class="blog-listing-cta">Read article →</span>
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-brand">
+            <svg width="14" height="14" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <rect x="1" y="1" width="14" height="14" rx="3.5" fill="#ff6b6b"/>
+              <rect x="19" y="1" width="14" height="14" rx="3.5" fill="#4ecdc4"/>
+              <rect x="1" y="19" width="14" height="14" rx="3.5" fill="#4ecdc4" opacity="0.45"/>
+              <rect x="19" y="19" width="14" height="14" rx="3.5" fill="#ff6b6b" opacity="0.45"/>
+            </svg>
+            token compare
+          </span>
+          <span class="footer-sep">·</span>
+          <span class="footer-copy">© 2026</span>
+          <span class="footer-sep">·</span>
+          <span style="font-size:0.8rem;color:var(--text-muted)">by <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link" style="color:var(--text-secondary);font-weight:600">Liran Tal</a></span>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="/" class="footer-link">Tool</a>
+          <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="footer-link">@liran_tal</a>
+          <a href="https://github.com/lirantal/tokenu" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
