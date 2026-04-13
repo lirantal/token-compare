@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tokencompare.dev/sitemap.xml
+Sitemap: https://token-compare.pages.dev/sitemap.xml

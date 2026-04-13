@@ -6,7 +6,10 @@
       "Bash(npm run:*)",
       "Bash(chmod +x:*)",
       "Bash(pnpm install:*)",
-      "Bash(pnpm run:*)"
+      "Bash(pnpm run:*)",
+      "WebFetch(domain:token-compare.pages.dev)",
+      "Bash(find /workspaces/token-compare -not -path '*/node_modules/*' -not -path '*/.git/*' -not -path '*/dist/*' \\\\\\( -name \"*.html\" -o -name \"*.xml\" -o -name \"*.txt\" \\\\\\) -exec sed -i 's|https://tokencompare\\\\.dev|https://token-compare.pages.dev|g' {} +)",
+      "Bash(identify /workspaces/token-compare/public/token-compare-og.jpeg)"
     ]
   }
 }
