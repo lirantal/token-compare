@@ -14,25 +14,105 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="@liran_tal">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "How to Reduce Token Count in LLM Prompts — 9 Practical Techniques",
-    "description": "Reduce token count in ChatGPT and GPT-4 prompts by 20-40% using 9 practical techniques.",
-    "url": "https://token-compare.pages.dev/blog/reduce-token-count-prompts/",
-    "datePublished": "2026-04-12",
-    "dateModified": "2026-04-12",
-    "author": {
-      "@type": "Person",
-      "name": "Liran Tal",
-      "url": "https://x.com/liran_tal"
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Reduce Token Count in LLM Prompts — 9 Practical Techniques",
+      "description": "Reduce token count in ChatGPT and GPT-4 prompts by 20-40% using 9 practical techniques.",
+      "url": "https://token-compare.pages.dev/blog/reduce-token-count-prompts/",
+      "datePublished": "2026-04-12",
+      "dateModified": "2026-04-12",
+      "author": {
+        "@type": "Person",
+        "name": "Liran Tal",
+        "url": "https://x.com/liran_tal",
+        "sameAs": [
+          "https://x.com/liran_tal",
+          "https://github.com/lirantal"
+        ]
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Liran Tal",
+        "url": "https://x.com/liran_tal"
+      },
+      "image": "https://token-compare.pages.dev/token-compare-og.jpeg",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://token-compare.pages.dev/blog/reduce-token-count-prompts/"
+      }
     },
-    "publisher": {
-      "@type": "Person",
-      "name": "Liran Tal"
-    },
-    "image": "https://token-compare.pages.dev/token-compare-og.jpeg"
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Reduce Token Count in LLM Prompts",
+      "description": "Nine practical techniques to cut 20–40% of tokens from LLM system prompts and user messages without losing effectiveness.",
+      "url": "https://token-compare.pages.dev/blog/reduce-token-count-prompts/",
+      "totalTime": "PT10M",
+      "tool": {
+        "@type": "HowToTool",
+        "name": "Token Compare",
+        "url": "https://token-compare.pages.dev/"
+      },
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Remove filler words and pleasantries",
+          "text": "Delete polite but token-expensive phrases that add no information for the model: 'Please', 'Could you', 'I would like you to'. Replace 'Please summarize the following text for me' (9 tokens) with 'Summarize:' (2 tokens)."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Switch from prose to structured lists",
+          "text": "Replace paragraphs with bullet points. Prose connector words ('in addition', 'furthermore', 'it is also important to note that') cost tokens without adding meaning. A 42-token prose instruction block can become 26 tokens as a bullet list — a 38% reduction."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Prefer shorter synonyms",
+          "text": "Swap wordy phrases for shorter equivalents: 'utilize' → 'use', 'in order to' → 'to', 'due to the fact that' → 'because', 'at this point in time' → 'now'. Each swap saves 1–4 tokens and improves readability."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Define abbreviations for repeated concepts",
+          "text": "If a concept appears many times in your prompt, define an abbreviation at the start and use it throughout. 'customer support request' → 'CSR'. With 15 occurrences, this saves 30+ tokens from abbreviation alone."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Remove redundant context the model already knows",
+          "text": "Delete instructions that match GPT-4's default behavior: 'Answer in the user's language', 'Say if you don't know', 'Provide accurate information', 'You can use markdown'. These waste 10–30 tokens and can create instruction conflicts."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Compress few-shot examples",
+          "text": "Remove explanatory prose around examples and keep only the essential format. Replace 'Here is an example of the input you will receive and the output you should produce: Input: X. Output: Y' with 'Example: X → Y'. Saves ~17 tokens per example."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 7,
+          "name": "Use JSON shorthand for structured outputs",
+          "text": "Use short, clear field names in JSON schema definitions rather than descriptive ones. 'customerSatisfactionScore' → 'score', 'productCategoryIdentifier' → 'category'. The model uses whatever field names you specify."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 8,
+          "name": "Trim whitespace and blank lines",
+          "text": "Remove decorative blank lines, trailing spaces, and heavy markdown formatting used only for visual organization. A prompt with many section dividers and blank lines can save 10–15% of tokens from whitespace alone."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 9,
+          "name": "Move static knowledge to fine-tuning or RAG",
+          "text": "If your prompt embeds large reference documents or policy text, move that content to fine-tuning (for stable facts) or retrieval-augmented generation (for large knowledge bases). This can reduce prompt size by 50–80% for knowledge-heavy applications."
+        }
+      ]
+    }
+  ]
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -258,6 +338,18 @@ Step 2: Do that thing.</code></pre>
             <li>Context that is genuinely new information the model couldn't know otherwise</li>
           </ul>
           <p>Always test prompt changes before deploying. A prompt that is 30% shorter but produces wrong outputs 10% of the time is not actually cheaper when you factor in the cost of retries and user dissatisfaction.</p>
+
+          <div class="author-bio" itemscope itemtype="https://schema.org/Person">
+            <div class="author-avatar" aria-hidden="true">LT</div>
+            <div class="author-bio-text">
+              <span class="author-bio-name" itemprop="name">Liran Tal</span>
+              <span class="author-bio-desc" itemprop="description">Developer, open source maintainer, and author. Builds developer tools and writes about the JavaScript ecosystem, security, and AI engineering.</span>
+              <div class="author-bio-links">
+                <a href="https://x.com/liran_tal" target="_blank" rel="noopener noreferrer" class="author-bio-link" itemprop="sameAs">X @liran_tal</a>
+                <a href="https://github.com/lirantal" target="_blank" rel="noopener noreferrer" class="author-bio-link" itemprop="sameAs">GitHub</a>
+              </div>
+            </div>
+          </div>
 
         </article>
 

@@ -1,0 +1,55 @@
+# Token Compare
+
+> Token Compare is a free, browser-based LLM token counter and comparator. Paste two pieces of text side by side and instantly see how each tokenizes under the cl100k_base encoding used by GPT-4, GPT-4 Turbo, GPT-3.5-turbo, and ChatGPT. No account or signup required. All processing runs client-side in the browser.
+
+## What it does
+
+- Count tokens, characters, words, and lines for any text in real time
+- Compare two texts side by side with a visual bar showing which uses fewer tokens
+- Visualize individual tokens with color-coded highlights (each color = one token)
+- Measure token density (tokens per word) and token efficiency (unique tokens / total tokens)
+- Instant results — no API calls, no data sent to any server
+
+## Encoding
+
+Token Compare uses **cl100k_base**, the Byte Pair Encoding (BPE) tokenizer used by:
+- GPT-4, GPT-4 Turbo, GPT-4o (input)
+- GPT-3.5-turbo
+- ChatGPT (all versions)
+- text-embedding-ada-002
+
+Note: Claude (Anthropic), Gemini (Google), and Llama models use different tokenizers. Token counts for those models will differ from what Token Compare reports.
+
+## Who it is for
+
+- **Prompt engineers** comparing two phrasings to pick the more token-efficient version
+- **Developers** estimating OpenAI API costs before running large batch jobs
+- **Researchers** studying how different languages, scripts, and code styles tokenize under cl100k_base
+- **Technical writers** drafting content intended for LLM context windows with strict token budgets
+- **LLM fine-tuners** understanding token distribution in training datasets
+
+## Pricing
+
+Free. No account required. No rate limits. Runs entirely in the browser using the open-source gpt-tokenizer library.
+
+## Technology
+
+- Frontend: Vanilla JavaScript + Vite
+- Tokenizer: gpt-tokenizer (https://github.com/niieani/gpt-tokenizer) — a pure JavaScript implementation of cl100k_base
+- Hosting: Cloudflare Pages
+- No backend, no database, no telemetry
+
+## Key pages
+
+- Tool (main app): https://token-compare.pages.dev/
+- Blog index: https://token-compare.pages.dev/blog/
+- What is LLM Tokenization?: https://token-compare.pages.dev/blog/what-is-llm-tokenization/
+- How to Count Tokens for GPT-4 & ChatGPT: https://token-compare.pages.dev/blog/how-to-count-tokens-gpt4/
+- How to Reduce Token Count in LLM Prompts: https://token-compare.pages.dev/blog/reduce-token-count-prompts/
+
+## Author
+
+Created by Liran Tal, a developer and open source maintainer.
+- X / Twitter: https://x.com/liran_tal
+- GitHub: https://github.com/lirantal
+- Project repo: https://github.com/lirantal/tokenu

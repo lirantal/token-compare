@@ -372,6 +372,69 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--text-primary); border-color: var(--border-medium); background: var(--bg-elevated);
 }
 
+/* ─── Author bio card ─────────────────────────────────────────────────────────── */
+.author-bio {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-a-dim);
+  border: 2px solid rgba(255, 107, 107, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--accent-a);
+  letter-spacing: -0.02em;
+}
+
+.author-bio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.author-bio-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.author-bio-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.author-bio-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.author-bio-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-b);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.author-bio-link:hover {
+  opacity: 0.75;
+}
+
 /* ─── Blog listing page ───────────────────────────────────────────────────────── */
 .blog-listing-grid {
   max-width: 1100px; margin: 0 auto;

@@ -6,5 +6,6 @@ dependencies:
   apm:
   - anthropics/skills/skills/frontend-design
   - coreyhaines31/marketingskills/skills/seo-audit
+  - coreyhaines31/marketingskills/skills/ai-seo
   mcp: []
 scripts: {}
