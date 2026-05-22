@@ -1,7 +1,6 @@
 # npm security best practices
 # Source: https://github.com/lirantal/npm-security-best-practices
 
-
 # Require at least 30 days since package release (specified in minutes)
 minimumReleaseAge: 43200
 
@@ -21,10 +20,12 @@ trustPolicy: no-downgrade
 allowBuilds:
   esbuild: true
   rolldown: true
+  sharp: true
   unrs-resolver: true
+  workerd: true
 
 # Strictly enforce build dependencies, otherwise pnpm will error
 strictDepBuilds: true
 
-# Block exotic subdependencies such as those pulled from  Git sources
+# Block exotic subdependencies such as those pulled from Git sources
 blockExoticSubdeps: true
